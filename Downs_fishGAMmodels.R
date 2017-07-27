@@ -20,7 +20,7 @@ data$OFspecies<-as.ordered(data$OFspecies)
 data$Hatchery<-as.factor(data$Hatchery)
 
 #run model for carbon composition
-c.mod<-gam(C.relmax~s(Week)+s(Week,by=OFspecies)+s(Hatchery,bs='re'),data=data)
+c.mod<-gam(C.relmax~s(Week) + s(Week,by=OFspecies)+s(Hatchery,bs='re'),data=data)
 #c.mod<-gam(C.relmax~s(Week,by=OFspecies)+s(Hatchery,bs='re'),data=data)
 
 summary(c.mod)
@@ -117,3 +117,14 @@ plot.gam(c.mod,select=11,ylim=c(-2,2),shade=T,lwd=2.5,cex.axis=2.2,xlab='',ylab=
 mtext('Week',side=1,outer=T,cex=2.5,line=-1)
 mtext('s(Week):Species Relative %P',side=2,outer=T,cex=2.5,line=-2.6)
 dev.off()
+
+
+#Now look at some models for C:N, C:P, and N:P
+cn.mod<-gam(C.N~s(Week) + s(Week,by=OFspecies)+s(Hatchery,bs='re'),data=data)
+summary(cn.mod)
+
+cp.mod<-gam(C.P~s(Week) + s(Week,by=OFspecies)+s(Hatchery,bs='re'),data=data)
+summary(cp.mod)
+
+np.mod<-gam(N.P~s(Week)+s(Week,by=OFspecies)+s(Hatchery,bs='re'),data=data)
+summary(np)
